@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight's Tour</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker Registered'))
+            .catch(error => console.error('Service Worker Registration failed:', error));
+        }
+    </script>
+</head>
+<body>
+    <h1>Knight's Tour</h1>
+    <div id="move-counter">移动次数 = 0</div>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+    </div>
+    <div id="controls">
+        <label for="difficulty-slider">难度：
+            <span id="difficulty-label">5x5</span>
+        </label>
+        <input type="range" id="difficulty-slider" class="slider" min="5" max="8" value="5">
+    </div>
+    <button id="start-button">开始</button><br>
+    <button id="rules-button">游戏规则</button><br><br>
+    <div id="message"></div>
+
+    <div id="rules-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>游戏规则</h2>
+            <p>骑士在棋盘上按规则走遍所有格子，每个格子只走一次。</p>
+            <ul style="text-align: left;">
+                <li>骑士只能走“日”字，每步必须是两格横加一格竖，或两格竖加一格横。</li>
+                <li>点击开始后，骑士会随机放在某一格，根据规则点击下一个格子。</li>
+                <li>所有格子变为绿色，表示成功。</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("rules-modal");
+        const btn = document.getElementById("rules-button");
+        const span = document.getElementsByClassName("close-button")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
